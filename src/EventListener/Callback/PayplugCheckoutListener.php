@@ -29,7 +29,7 @@ class PayplugCheckoutListener
     protected $refundManager;
 
     /**
-     * @var Session
+     * @var \Symfony\Component\HttpFoundation\RequestStack
      */
     protected $session;
 
@@ -41,7 +41,7 @@ class PayplugCheckoutListener
     public function __construct(
         PaymentMethodProviderInterface $paymentMethodProvider,
         RefundManager $refundManager,
-        Session $session,
+        \Symfony\Component\HttpFoundation\RequestStack $session,
         Logger $logger
     ) {
         $this->paymentMethodProvider = $paymentMethodProvider;

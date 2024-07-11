@@ -7,7 +7,7 @@ namespace Payplug\Bundle\PaymentBundle\Controller;
 use Doctrine\Persistence\ManagerRegistry;
 use Oro\Bundle\IntegrationBundle\Entity\Channel;
 use Oro\Bundle\IntegrationBundle\Form\Type\ChannelType;
-use Oro\Bundle\SecurityBundle\Annotation\CsrfProtection;
+use Oro\Bundle\SecurityBundle\Attribute\CsrfProtection;
 use Payplug\Bundle\PaymentBundle\Constant\PayplugSettingsConstant;
 use Payplug\Bundle\PaymentBundle\Entity\PayplugSettings;
 use Payplug\Bundle\PaymentBundle\Service\Gateway;
@@ -16,19 +16,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ConnectionController extends AbstractController
 {
     /**
-     * @Route("/login/{channelId}/", name="payplug_login", methods={"POST"})
-     * @ParamConverter("channel", class="OroIntegrationBundle:Channel", options={"id" = "channelId"})
-     * @CsrfProtection()
-     *
      * @throws \InvalidArgumentException
      */
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/login/{channelId}/', name: 'payplug_login', methods: ['POST'])]
+    #[ParamConverter('channel', class: 'OroIntegrationBundle:Channel', options: ['id' => 'channelId'])]
+    #[CsrfProtection]
     public function loginAction(
         Request $request,
         Channel $channel = null,
@@ -79,12 +78,11 @@ class ConnectionController extends AbstractController
     }
 
     /**
-     * @Route("/logout/{channelId}/", name="payplug_logout", methods={"POST"})
-     * @ParamConverter("channel", class="OroIntegrationBundle:Channel", options={"id" = "channelId"})
-     * @CsrfProtection()
-     *
      * @throws \InvalidArgumentException
      */
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/logout/{channelId}/', name: 'payplug_logout', methods: ['POST'])]
+    #[ParamConverter('channel', class: 'OroIntegrationBundle:Channel', options: ['id' => 'channelId'])]
+    #[CsrfProtection]
     public function logoutAction(Request $request, Channel $channel = null, SessionInterface $session, TranslatorInterface $translator, ManagerRegistry $managerRegistry): JsonResponse
     {
         $form = $this->createForm(

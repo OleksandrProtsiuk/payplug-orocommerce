@@ -9,15 +9,13 @@ use Payplug\Bundle\PaymentBundle\Method\Provider\PayplugMethodProvider;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class PaymentTransactionController extends AbstractController
 {
-    /**
-     * @Route("/info/{paymentTransactionId}/", name="payplug_payment_transaction_info")
-     * @ParamConverter("paymentTransaction", class="OroPaymentBundle:PaymentTransaction", options={"id" = "paymentTransactionId"})
-     * @Template
-     */
+    #[\Symfony\Component\Routing\Attribute\Route(path: '/info/{paymentTransactionId}/', name: 'payplug_payment_transaction_info')]
+    #[ParamConverter('paymentTransaction', class: 'OroPaymentBundle:PaymentTransaction', options: ['id' => 'paymentTransactionId'])]
+    #[Template]
     public function infoAction(PaymentTransaction $paymentTransaction, PayplugMethodProvider $payplugMethodProvider)
     {
         $paymentMethod = $payplugMethodProvider->getPaymentMethod(

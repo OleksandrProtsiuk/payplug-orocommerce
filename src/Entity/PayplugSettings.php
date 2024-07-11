@@ -13,85 +13,52 @@ use Payplug\Bundle\PaymentBundle\Constant\PayplugSettingsConstant;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass="Payplug\Bundle\PaymentBundle\Entity\Repository\PayplugSettingsRepository")
- */
+#[ORM\Entity(repositoryClass: \Payplug\Bundle\PaymentBundle\Entity\Repository\PayplugSettingsRepository::class)]
 class PayplugSettings extends Transport
 {
     /**
      * @var string
-     * @ORM\Column(name="payplug_login", type="string")
      */
+    #[ORM\Column(name: 'payplug_login', type: 'string')]
     protected $login;
 
     /**
      * @var bool
-     * @ORM\Column(name="payplug_debug_mode", type="boolean", options={"default"=false})
      */
+    #[ORM\Column(name: 'payplug_debug_mode', type: 'boolean', options: ['default' => false])]
     protected $debugMode = false;
 
     /**
      * @var string
-     * @ORM\Column(name="payplug_api_key_test", type="string", nullable=true)
      */
+    #[ORM\Column(name: 'payplug_api_key_test', type: 'string', nullable: true)]
     protected $apiKeyTest;
 
     /**
      * @var string
-     * @ORM\Column(name="payplug_api_key_live", type="string", nullable=true)
      */
+    #[ORM\Column(name: 'payplug_api_key_live', type: 'string', nullable: true)]
     protected $apiKeyLive;
 
     /**
      * @var string
-     * @ORM\Column(
-     *     name="payplug_mode",
-     *     type="string",
-     *     nullable=false,
-     *     options={"default" : PayplugSettingsConstant::MODE_TEST}
-     * )
      */
+    #[ORM\Column(name: 'payplug_mode', type: 'string', nullable: false, options: ['default' => PayplugSettingsConstant::MODE_TEST])]
     protected $mode = PayplugSettingsConstant::MODE_TEST;
     /**
      * @var Collection|LocalizedFallbackValue[]
-     *
-     * @ORM\ManyToMany(
-     *      targetEntity="Oro\Bundle\LocaleBundle\Entity\LocalizedFallbackValue",
-     *      cascade={"ALL"},
-     *      orphanRemoval=true
-     * )
-     * @ORM\JoinTable(
-     *      name="payplug_trans_label",
-     *      joinColumns={
-     *          @ORM\JoinColumn(name="transport_id", referencedColumnName="id", onDelete="CASCADE")
-     *      },
-     *      inverseJoinColumns={
-     *          @ORM\JoinColumn(name="localized_value_id", referencedColumnName="id", onDelete="CASCADE", unique=true)
-     *      }
-     * )
-     * @Assert\NotBlank
      */
+    #[Assert\NotBlank]
+    #[ORM\ManyToMany(targetEntity: \Oro\Bundle\LocaleBundle\Entity\LocalizedFallbackValue::class, cascade: ['ALL'], orphanRemoval: true)]
+    #[ORM\JoinTable(name: 'payplug_trans_label', joinColumns: [new ORM\JoinColumn(name: 'transport_id', referencedColumnName: 'id', onDelete: 'CASCADE')], inverseJoinColumns: [new ORM\JoinColumn(name: 'localized_value_id', referencedColumnName: 'id', onDelete: 'CASCADE', unique: true)])]
     private $labels;
 
     /**
      * @var Collection|LocalizedFallbackValue[]
-     *
-     * @ORM\ManyToMany(
-     *      targetEntity="Oro\Bundle\LocaleBundle\Entity\LocalizedFallbackValue",
-     *      cascade={"ALL"},
-     *      orphanRemoval=true
-     * )
-     * @ORM\JoinTable(
-     *      name="payplug_short_label",
-     *      joinColumns={
-     *          @ORM\JoinColumn(name="transport_id", referencedColumnName="id", onDelete="CASCADE")
-     *      },
-     *      inverseJoinColumns={
-     *          @ORM\JoinColumn(name="localized_value_id", referencedColumnName="id", onDelete="CASCADE", unique=true)
-     *      }
-     * )
-     * @Assert\NotBlank
      */
+    #[Assert\NotBlank]
+    #[ORM\ManyToMany(targetEntity: \Oro\Bundle\LocaleBundle\Entity\LocalizedFallbackValue::class, cascade: ['ALL'], orphanRemoval: true)]
+    #[ORM\JoinTable(name: 'payplug_short_label', joinColumns: [new ORM\JoinColumn(name: 'transport_id', referencedColumnName: 'id', onDelete: 'CASCADE')], inverseJoinColumns: [new ORM\JoinColumn(name: 'localized_value_id', referencedColumnName: 'id', onDelete: 'CASCADE', unique: true)])]
     private $shortLabels;
 
     /**

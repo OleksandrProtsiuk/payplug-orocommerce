@@ -4,7 +4,7 @@
     "license": "OSL-3.0",
     "require": {
         "payplug/payplug-php": "^3.5",
-        "oro/commerce": "5.1.*"
+        "oro/commerce": "6.0.*"
     },
     "repositories": {
         "oro": {

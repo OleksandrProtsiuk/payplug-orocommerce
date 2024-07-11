@@ -47,7 +47,7 @@ class PayplugConfigTest extends AbstractPaymentConfigTestCase
     /**
      * {@inheritdoc}
      */
-    protected function getPaymentConfig()
+    protected function getPaymentConfig(): \Oro\Bundle\PaymentBundle\Method\Config\PaymentConfigInterface
     {
         $params = [
             PayplugConfig::FIELD_PAYMENT_METHOD_IDENTIFIER => 'test_payment_method_identifier',

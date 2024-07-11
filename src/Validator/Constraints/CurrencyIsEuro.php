@@ -10,12 +10,12 @@ class CurrencyIsEuro extends Constraint
 {
     public $message = 'payplug.constraints.payment_rule.euro_currency';
 
-    public function validatedBy()
+    public function validatedBy(): string
     {
         return 'payplug.validator.payment_rule.currency_is_euro';
     }
 
-    public function getTargets()
+    public function getTargets(): string|array
     {
         return self::CLASS_CONSTRAINT;
     }

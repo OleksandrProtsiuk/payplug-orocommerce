@@ -20,7 +20,7 @@ class LocalizedRange extends Range
         parent::__construct($options);
     }
 
-    public function validatedBy()
+    public function validatedBy(): string
     {
         return RangeValidator::class;
     }
